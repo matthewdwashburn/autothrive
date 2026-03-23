@@ -1,6 +1,6 @@
 # AutoThrive
 
-**A full-stack web-hosted automation platform that unifies social media content creation, distribution, and e-commerce operations into a single system — automating thousands of daily business tasks.**
+**A full-stack web-hosted automation platform that unifies social media content creation, distribution, and e-commerce operations into a single system, automating thousands of daily business tasks.**
 
 Built with React, .NET, Docker, n8n, and PostgreSQL, deployed on AWS EC2.
 
