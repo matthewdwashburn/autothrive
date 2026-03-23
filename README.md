@@ -1,123 +1,141 @@
-# N8N Media and Commerce Automation Workflows
+# AutoThrive
 
-A collection of n8n automation workflows designed to streamline operations for my digital media and e-commerce business. These workflows automate data collection, content management, account monitoring/updating, media production tasks, and more. The raw files are not included to protect proprietary business practices. This repository serves as a demonstration of the technologies, architecture, and design patterns used in the project.
+**A full-stack web-hosted automation platform that unifies social media content creation, distribution, and e-commerce operations into a single system — automating thousands of daily business tasks.**
 
-## Amazon Seller Account Manager Workflow
+Built with React, .NET, Docker, n8n, and PostgreSQL, deployed on AWS EC2.
 
-![workflow preview](https://github.com/user-attachments/assets/8bda02df-2f1c-44fd-a88f-ae557fe703bd)
+---
 
-## Purpose: Automate Amazon Seller account management and optimization.
+## Platform Overview
 
-### Key Features:
+![login page](https://github.com/user-attachments/assets/158acb27-4f77-483b-a374-f2946b0b7f80)
 
-- Financial Management: Automated order logging with profit calculation and bookkeeping integration for daily P&L tracking
-- Dynamic Pricing: Real-time price optimization based on competitor analysis and market conditions
-- Inventory Monitoring: Low-stock alerts and reorder notifications to prevent stockouts
-- Review Management: Automated identification of eligible orders and strategic review request campaigns
-- PPC Optimization: Bid adjustment automation based on keyword performance and market dynamics
-- Performance Analytics: Daily reports on sales metrics, profitability, and account health
+AutoThrive is a secure, multi-user SaaS platform with role-based access control and two-factor authentication. Users log in and manage isolated automation profiles, each running independent workflow configurations.
 
-### Business Impact:
+![2fa page](https://github.com/user-attachments/assets/ee9cbce8-2b7b-4a79-a2f1-89afa7ab4c92)
 
-- Eliminates manual daily maintenance tasks
-- Optimizes pricing for maximum profitability
-- Prevents costly inventory stockouts
-- Increases review velocity and product visibility
-- Reduces PPC spend while maintaining performance
+---
 
-## Video Creator/Uploader Workflow
+## Architecture
 
-![workflow preview](https://github.com/user-attachments/assets/03124718-580e-4855-8e6e-d355871e595e)
+AutoThrive runs as a fully containerized system on AWS EC2, orchestrated via Docker Compose:
 
-## Purpose: End-to-end automated video production pipeline with AI-powered content creation and social media distribution.
+| Layer | Technology |
+|---|---|
+| Frontend | React (Vite) |
+| Backend API | .NET (ASP.NET Core) |
+| Workflow Engine | n8n |
+| Database | PostgreSQL |
+| Reverse Proxy | Traefik |
+| Infrastructure | AWS EC2, Docker Compose |
+| DNS | Cloudflare |
 
-### Key Features:
+All services communicate over an internal Docker network. n8n workflows are triggered by the .NET backend and execute autonomously on schedule.
 
-- Automated Video Assembly: FFmpeg-powered video creation combining scraped content, AI commentary text, and custom video assets
-- AI Music Selection: Intelligent background music matching based on video content analysis and mood detection
-- Content Distribution: Automated upload to YouTube with AI-optimized title and description generation
-- Custom Image Workflows: Generated image commentary for original raw image inputs
-- Flexible Audio Management: Custom song replacement, web-based audio/video downloading, and precision audio trimming
-- Quality Control: Manual override options for poor-quality generated assets or audio
-- Content Optimization: Automatic formatting, metadata, and posting schedule optimization
+---
 
-### Business Impact:
+## Dashboard
 
-- Scales video production from manual creation to an automated pipeline
-- Reduces video production time from hours to minutes
-- Ensures consistent content quality every time
-- Maximizes engagement through AI-optimized titles, descriptions, and music selection
-- Enables automated, rapid content production
+![home page](https://github.com/user-attachments/assets/231e26ff-79c4-4dd6-8582-c9393b98566b)
 
-## X/Reddit/Web Scraper Workflow
+After authentication, users access their profile-based dashboard. Each profile represents an independent automation configuration — separate content pipelines, accounts, and workflow settings running in parallel.
 
-![workflow preview](https://github.com/user-attachments/assets/9f332d67-d7c6-4085-a5f9-4010a1dcc04f)
+![profile page](https://github.com/user-attachments/assets/f7f7b8dc-ae8a-4148-97a8-27843c5360df)
 
-## Purpose: Comprehensive social media content aggregation and AI-powered content transformation pipeline.
+The content management interface allows users to review, curate, and manually override AI-generated assets before upload — providing quality control over the automated pipeline without breaking the automation flow.
 
-### Key Features:
+---
 
-- Multi-Platform Scraping: Automated content collection from X (Twitter), Reddit, and major news sites with customizable scheduling
-- Content Curation: Post performance metrics-based analysis and filtering of thousands of trending videos, stories, and images
-- AI Commentary Generation: Automated content analysis with intelligent descriptions and commentary creation
-- Template-Based Production: Automated image composition with proper original post image resizing and professional template formatting
-- Video Processing Pipeline: Complete video production workflow for video-based posts, including download, trimming, encoding correction, resizing, and template integration
-- Quality Assurance: Manual review and customization options through integrated template editing tools
-- Scalable Processing: Handles high-volume content processing with parallel execution capabilities between scraping workflows
+## Media Automation Workflow
 
-### Content Processing Workflows:
+![media automation workflow](https://github.com/user-attachments/assets/107ac5db-97cc-43ec-9970-31c1c9e7d373)
 
-Image Content Path: Scraping → AI Analysis → Commentary/Description Generation → Template Application → Image Output Ready for Creation Workflow
-Video Content Path: Scraping → Download Original Video → Encoding Fix → Resize → Template Integration → Video Compilation
-Quality Control Path: Manual screening and template customization options after templates have been generated
+**Purpose:** End-to-end automated social media content aggregation, AI-powered transformation, and video production pipeline.
 
-### Business Impact:
+### Sub-Workflows
 
-- Processes thousands of pieces of content automatically vs. manual curation
-- Transforms raw social media content into branded, commentary-rich fair use media assets
-- Eliminates manual content discovery and video production time
-- Ensures consistent visual branding across all curated content
-- Enables rapid response to trending topics and viral content
-- Increases video production efficiency and output immensely
+**Social Media Scrapers**
+- Automated content collection from Facebook (images + text), Reddit, X (Twitter), and Instagram
+- Engagement-based filtering across thousands of posts per run
+- Apify account pooling for scalable, distributed scraping
 
-## IG Scraper Workflow
+**AI Content Processing**
+- GPT-4o Vision analysis of scraped images and carousel posts
+- AI-generated commentary and news-style headline descriptions
+- Templated.io image composition with branded overlays via the Templated API
 
-![workflow preview](https://github.com/user-attachments/assets/8fff931b-8908-40a8-aab2-e633e6bde882)
+**Video Production Pipeline**
+- FFmpeg-powered video assembly combining scraped content, AI commentary, and custom assets
+- AI music selection based on video content mood analysis
+- Encoding correction, resizing, and template integration for video-based posts
+- Manual override options for quality control on generated assets
 
-## Purpose: Automated Instagram content curation and AI-powered commentary and description creation for image content to be used in the video production workflow.
+**Distribution**
+- Automated YouTube upload with AI-optimized titles, descriptions, and scheduling
+- Parallel execution across multiple profile configurations
 
-### Key Features:
+### Content Processing Paths
 
-- Targeted Content Discovery: Automated scraping of trending posts and creator content from Instagram with engagement-based filtering
-- Advanced Carousel Analysis: AI-powered analysis of complete Instagram carousel posts to capture full context and messaging
-- Intelligent Image Processing: Automated cropping and optimization of primary carousel images for template compatibility
-- News-Style Summarization: AI generation of compelling headline-style descriptions that capture post essence
-- Contextual Commentary: Intelligent commentary creation based on complete carousel context, not just individual images
-- Template Integration: Seamless integration with template creation system for consistent visual branding
-- Quality Assurance: Manual review and customization options through integrated template editing tools
+```
+Image Path:  Scrape → AI Analysis → Commentary → Template → Image Asset
+Video Path:  Scrape → Download → Encoding Fix → Resize → Template → Video Asset
+QC Path:     Manual review and template editing before upload
+```
 
-### Business Impact:
+---
 
-- Processes thousands of Instagram posts automatically vs. manual curation
-- Transforms visual-heavy Instagram posts into compressed, commentary-rich fair use media assets
-- Leverages complete carousel context for more accurate and engaging commentary
+## Commerce Automation Workflow
 
-## FB Scraper Workflow
+![commerce automation workflow](https://github.com/user-attachments/assets/093c8497-948a-4626-ad4d-58940850835e)
 
-![workflow preview](https://github.com/user-attachments/assets/cc5a1445-5d7c-4677-af40-d34efb53ff63)
+**Purpose:** Fully automated Amazon Seller account management — from pricing to advertising to fulfillment monitoring.
 
-## Purpose: Facebook content curation with AI-driven commentary integration for image content to be used in video content production.
+### Sub-Workflows
 
-### Key Features:
+**Hourly Bid Update**
+- Real-time PPC keyword bid optimization via the Amazon Advertising API
+- Adjusts bids based on keyword performance data and market dynamics
+- Loops over all active campaigns and keywords on an hourly trigger
 
-- Strategic Content Sourcing: Automated extraction of high-engagement images from Facebook creators and trending pages
-- AI-Powered Content Analysis: Intelligent image analysis and contextual commentary generation for viral Facebook content
-- Template-Based Processing: Automated integration of original images with AI-generated commentary overlays into a custom template
-- Dynamic Image Optimization: Intelligent resizing and formatting within professional template guidelines.
-- Quality Assurance: Manual review and customization options through integrated template editing tools
+**Daily Review Solicitation**
+- Fetches all eligible orders via Amazon SP-API (paginated)
+- Determines solicitation eligibility per order
+- Sends review request campaigns on a 2AM daily trigger with rate-limit handling
 
-### Business Impact:
+**Daily Inventory Monitor**
+- Pulls live inventory levels via SP-API each morning
+- Sends low-stock email alerts to prevent stockouts
 
-- Processes thousands of Facebook posts automatically vs. manual curation
-- Transforms Facebook viral content into commentary-enhanced media assets
-- Eliminates manual Facebook content monitoring and processing
+**Track Profit & Orders**
+- Pulls financial reports, order data, and listing attributes from SP-API
+- Calculates per-order profitability and logs to bookkeeping system
+- Generates daily P&L summaries
+
+**Update Price**
+- Scheduled dynamic price updates based on competitor and market conditions
+- Dual-trigger configuration for flexible scheduling
+
+---
+
+## Key Capabilities
+
+- **Multi-profile isolation** — independent workflow configs per brand or account
+- **2FA security** — TOTP-based authentication via ASP.NET Core Identity
+- **Scalable scraping** — Apify account pool rotation to distribute request load
+- **AI-native pipeline** — GPT-4o Vision integrated at every content processing stage
+- **Manual override layer** — quality control UI without breaking automation flow
+- **Self-healing workflows** — error handling, rate limit waits, and retry logic throughout
+
+---
+
+## Business Impact
+
+- Processes thousands of pieces of social content automatically per day
+- Reduces video production time from hours to minutes per upload
+- Eliminates manual Amazon account maintenance tasks entirely
+- Optimizes PPC spend continuously without human intervention
+- Scales content output across multiple brands from a single platform
+
+---
+
+*Raw workflow files are not included in this repository to protect proprietary business logic. This repository serves as a demonstration of the technologies, architecture, and design patterns used in the project.*
